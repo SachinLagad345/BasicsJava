@@ -23,13 +23,24 @@ public class GamblerStimulator {
 		// TODO Auto-generated method stub
 
 		GamblerStimulator gm = new GamblerStimulator();
-		int high = gm.stake + (int)Math.floor(0.5 * gm.stake);
-		int low = gm.stake - (int)Math.floor(0.5 * gm.stake);
-		while( !(gm.stake == high || gm.stake == low) )
+		int dayCount = 1;
+
+		while(dayCount <= 20)
 		{
-			gm.putBet();
+			int high = gm.stake + (int)Math.floor(0.5 * gm.stake);
+			int low = gm.stake - (int)Math.floor(0.5 * gm.stake);
+			while( !(gm.stake == high || gm.stake == low) )
+			{
+				gm.putBet();
+			}
+			System.out.println("Todays bet game for day "+ dayCount + " ended! Money is " + gm.stake+"$\n");
+			dayCount++;
 		}
-		System.out.println("Todays bet game ended! Money is " + gm.stake+"$");
+		
+		if(gm.stake > 100)
+			System.out.println("Stake won in 20 days is " + (gm.stake-100) + "$");
+		else
+			System.out.println("Stake lost in 20 days is " + (100-gm.stake) + "$");
 	}
 
 }
