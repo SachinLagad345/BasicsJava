@@ -23,7 +23,13 @@ public class GamblerStimulator {
 		// TODO Auto-generated method stub
 
 		GamblerStimulator gm = new GamblerStimulator();
-		gm.putBet();
+		int high = gm.stake + (int)Math.floor(0.5 * gm.stake);
+		int low = gm.stake - (int)Math.floor(0.5 * gm.stake);
+		while( !(gm.stake == high || gm.stake == low) )
+		{
+			gm.putBet();
+		}
+		System.out.println("Todays bet game ended! Money is " + gm.stake+"$");
 	}
 
 }
