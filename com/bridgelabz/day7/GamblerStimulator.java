@@ -25,6 +25,10 @@ public class GamblerStimulator {
 		GamblerStimulator gm = new GamblerStimulator();
 		String dcsn[] = new String[30];
 		int reslts[] = new int[30];
+		int max = 0;
+		int min = 0;
+		int luckyday = 0;
+		int unluckyday = 0;
 		int dayCount = 1;
 
 		while(dayCount <= 30)
@@ -41,11 +45,21 @@ public class GamblerStimulator {
 			{
 				dcsn[dayCount-1] = "Won";
 				reslts[dayCount-1] = gm.stake - startStake;
+				if(max < (gm.stake - startStake))
+				{
+					max = gm.stake - startStake;
+					luckyday = dayCount;
+				}
 			}
 			else
 			{
 				dcsn[dayCount-1] = "Lost";
 				reslts[dayCount-1] = startStake - gm.stake;
+				if(min < (startStake - gm.stake))
+				{
+					min = startStake - gm.stake;
+					unluckyday = dayCount;
+				}
 			}
 			dayCount++;
 		}
@@ -55,6 +69,9 @@ public class GamblerStimulator {
 		{
 			System.out.println("Amount " + dcsn[i] + " for day " + (i+1) + " is "+ reslts[i] + "$");
 		}
+		
+		System.out.println("Luckiest day is "+ luckyday+ " and amount won that day is "+ max);
+		System.out.println("Unluckiest day is "+ unluckyday+ " and amount lost that day is "+ min);
 	}
 
 }
