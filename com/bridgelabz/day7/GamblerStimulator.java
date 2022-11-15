@@ -3,75 +3,95 @@ package com.bridgelabz.day7;
 import java.util.Random;
 
 public class GamblerStimulator {
-	int stake = 100;
-
-	public void putBet() {
+	
+	public int dayBet()
+	{
+		int stake = 100;
+		int dayCount = 1;
 		Random rnd = new Random();
-		int reslt = rnd.nextInt(2);
-		if (reslt == 0) {
-			System.out.println("Lost bet of 1$!");
-			stake--;
-			System.out.println("Remaining money is " + stake + "$");
-		} else {
-			System.out.println("Won bet of 1$!");
-			stake++;
-			System.out.println("Remaining money is " + stake + "$");
-		}
+
+			int high = stake + (int)Math.floor(0.5 * stake);
+			int low = stake - (int)Math.floor(0.5 * stake);
+			while( !(stake == high || stake == low) )
+			{
+				int reslt = rnd.nextInt(2);
+				if (reslt == 0) {
+					System.out.println("Lost bet of 1$!");
+					stake--;
+					System.out.println("Remaining money is " + stake + "$");
+				} else {
+					System.out.println("Won bet of 1$!");
+					stake++;
+					System.out.println("Remaining money is " + stake + "$");
+				}
+			}
+			System.out.println("Todays bet game for day "+ dayCount + " ended! Money is " + stake+"$\n");
+
+		return stake;
 	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		GamblerStimulator gm = new GamblerStimulator();
+	
+	public int monthlyBet()
+	{
+		int profit = 0;
+		int loss = 0;
 		String dcsn[] = new String[30];
 		int reslts[] = new int[30];
 		int max = 0;
 		int min = 0;
 		int luckyday = 0;
 		int unluckyday = 0;
-		int dayCount = 1;
-
-		while(dayCount <= 30)
+		int stake =0;
+		for(int i=0;i<30;i++)
 		{
-			int startStake = gm.stake;
-			int high = gm.stake + (int)Math.floor(0.5 * gm.stake);
-			int low = gm.stake - (int)Math.floor(0.5 * gm.stake);
-			while( !(gm.stake == high || gm.stake == low) )
+			stake = dayBet();
+			if(stake > 100)
 			{
-				gm.putBet();
-			}
-			System.out.println("Todays bet game for day "+ dayCount + " ended! Money is " + gm.stake+"$\n");
-			if(gm.stake > startStake)
-			{
-				dcsn[dayCount-1] = "Won";
-				reslts[dayCount-1] = gm.stake - startStake;
-				if(max < (gm.stake - startStake))
+				dcsn[i] = "Won";
+				reslts[i] = stake - 100;
+				if(max < (stake - 100))
 				{
-					max = gm.stake - startStake;
-					luckyday = dayCount;
+					max = stake - 100;
+					luckyday = i+1;
 				}
+				profit += (stake-100);
 			}
 			else
 			{
-				dcsn[dayCount-1] = "Lost";
-				reslts[dayCount-1] = startStake - gm.stake;
-				if(min < (startStake - gm.stake))
+				dcsn[i] = "Lost";
+				reslts[i] = 100 - stake;
+				if(min < (100 - stake))
 				{
-					min = startStake - gm.stake;
-					unluckyday = dayCount;
+					min = 100 - stake;
+					unluckyday = i+1;
 				}
+				loss += (100-stake);
 			}
-			dayCount++;
-		}
-		
-		System.out.println("\n Monthly Report \n ");
-		for(int i=0;i<dcsn.length;i++)
-		{
-			System.out.println("Amount " + dcsn[i] + " for day " + (i+1) + " is "+ reslts[i] + "$");
-		}
-		
-		System.out.println("Luckiest day is "+ luckyday+ " and amount won that day is "+ max);
-		System.out.println("Unluckiest day is "+ unluckyday+ " and amount lost that day is "+ min);
+		}		
+	
+	System.out.println("\n Monthly Report \n ");
+	for(int i=0;i<dcsn.length;i++)
+	{
+		System.out.println("Amount " + dcsn[i] + " for day " + (i+1) + " is "+ reslts[i] + "$");
+	}
+	
+	System.out.println("Luckiest day is "+ luckyday+ " and amount won that day is "+ max);
+	System.out.println("Unluckiest day is "+ unluckyday+ " and amount lost that day is "+ min);
+	System.out.println("Profit is "+ profit+" and loss is " + loss );
+	if(profit > loss)
+		return 1;
+	else
+		return 0;
 	}
 
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		GamblerStimulator gm = new GamblerStimulator();
+		
+		int money = gm.monthlyBet();
+		if(money == 0)
+			System.out.println("\n\n Quitting Gambling!");
+		else
+			System.out.println("\n\n Gamble for next month");
+	}
 }
