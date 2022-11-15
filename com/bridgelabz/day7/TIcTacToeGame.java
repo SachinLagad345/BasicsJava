@@ -66,10 +66,10 @@ public class TIcTacToeGame {
 		}
 		board[n] = mychar;
 		showBoard();
-		makeCompMove();
+		makeCompMove(sc);
 	}
 	
-	public void makeCompMove()
+	public void makeCompMove(Scanner sc)
 	{
 		System.out.println("Computers turn!");
 		Random rnd = new Random();
@@ -82,6 +82,7 @@ public class TIcTacToeGame {
 		}
 		board[c] = compchar;
 		showBoard();
+		makeMove(sc);
 	}
 	
 	public boolean isEmpty(int n)
@@ -99,7 +100,20 @@ public class TIcTacToeGame {
 		
 		TIcTacToeGame game = new TIcTacToeGame();
 		Scanner sc = new Scanner(System.in);
+		Random rnd = new Random();
 		game.chooseLetter(sc);
+		System.out.println("******** Toss Time ********");
+		int t = rnd.nextInt(2);
+		if(t == 0)
+		{
+			System.out.println("User won toss!");
+			game.makeMove(sc);
+		}
+		else
+		{
+			System.out.println("User Lost Toss!");
+			game.makeCompMove(sc);
+		}
 		game.showBoard();
 		game.makeMove(sc);
 		sc.close();
