@@ -10,6 +10,7 @@ public class TIcTacToeGame {
 	
 	public void showBoard()
 	{
+		System.out.println("*******GAME BOARD******");
 		for(int i=1;i<board.length;i++)
 		{
 			
@@ -50,6 +51,27 @@ public class TIcTacToeGame {
 			mychar = 'O';
 			compchar = 'X';
 		}
+		sc.close();
+	}
+	
+	public void makeMove()
+	{
+		System.out.println("Mark position from 1 to 9");
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		sc.close();
+		checkPos(n);
+	}
+	
+	public void checkPos(int n)
+	{
+		if(board[n] == 'X' || board[n] == 'O') {
+			System.out.println("Position already filled!Choose other one");
+			makeMove();
+		}
+		else
+			board[n] = mychar;
+		showBoard();
 	}
 	
 	public static void main(String[] args) {
@@ -58,6 +80,7 @@ public class TIcTacToeGame {
 		TIcTacToeGame game = new TIcTacToeGame();
 		game.chooseLetter();
 		game.showBoard();
+		game.makeMove();
 	}
 
 }
