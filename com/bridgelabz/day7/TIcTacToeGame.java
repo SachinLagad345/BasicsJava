@@ -8,7 +8,7 @@ public class TIcTacToeGame {
 	char mychar = 'x';
 	char compchar = 'o';
 	
-	public void display()
+	public void showBoard()
 	{
 		for(int i=1;i<board.length;i++)
 		{
@@ -57,7 +57,7 @@ public class TIcTacToeGame {
 		
 		TIcTacToeGame game = new TIcTacToeGame();
 		game.chooseLetter();
-		game.display();
+		game.showBoard();
 	}
 
 }
