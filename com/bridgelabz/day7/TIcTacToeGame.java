@@ -1,5 +1,6 @@
 package com.bridgelabz.day7;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class TIcTacToeGame {
@@ -37,10 +38,9 @@ public class TIcTacToeGame {
 	}
 	
 	
-	public void chooseLetter()
+	public void chooseLetter(Scanner sc)
 	{
 		System.out.println("Please choose your Letter!\n Press 1 for X\n Press 2 for O");
-		Scanner sc = new Scanner(System.in);
 		int i = sc.nextInt();
 		if(i==1) {
 			mychar = 'X';
@@ -51,36 +51,58 @@ public class TIcTacToeGame {
 			mychar = 'O';
 			compchar = 'X';
 		}
-		sc.close();
 	}
 	
-	public void makeMove()
+	public void makeMove(Scanner sc)
 	{
-		System.out.println("Mark position from 1 to 9");
-		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
-		sc.close();
-		checkPos(n);
+		boolean check = false;
+		int n = 0;
+		while(!check)
+		{
+			System.out.println("Users Turn");
+			System.out.println("Mark/Write position from 1 to 9");
+			n = sc.nextInt();
+			check = isEmpty(n);
+		}
+		board[n] = mychar;
+		showBoard();
+		makeCompMove();
 	}
 	
-	public void checkPos(int n)
+	public void makeCompMove()
+	{
+		System.out.println("Computers turn!");
+		Random rnd = new Random();
+		boolean check = false;
+		int c = 0;
+		while(!check)
+		{
+			c = rnd.nextInt(9)+1;
+			check = isEmpty(c);
+		}
+		board[c] = compchar;
+		showBoard();
+	}
+	
+	public boolean isEmpty(int n)
 	{
 		if(board[n] == 'X' || board[n] == 'O') {
 			System.out.println("Position already filled!Choose other one");
-			makeMove();
+			return false;
 		}
 		else
-			board[n] = mychar;
-		showBoard();
+			return true;
 	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		TIcTacToeGame game = new TIcTacToeGame();
-		game.chooseLetter();
+		Scanner sc = new Scanner(System.in);
+		game.chooseLetter(sc);
 		game.showBoard();
-		game.makeMove();
+		game.makeMove(sc);
+		sc.close();
 	}
 
 }
