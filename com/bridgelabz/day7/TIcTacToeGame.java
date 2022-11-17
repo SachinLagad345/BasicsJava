@@ -66,7 +66,8 @@ public class TIcTacToeGame {
 		}
 		board[n] = mychar;
 		showBoard();
-		makeCompMove(sc);
+		if(!decideWinner())
+			makeCompMove(sc);
 	}
 	
 	public void makeCompMove(Scanner sc)
@@ -82,7 +83,8 @@ public class TIcTacToeGame {
 		}
 		board[c] = compchar;
 		showBoard();
-		makeMove(sc);
+		if(!decideWinner())
+			makeMove(sc);
 	}
 	
 	public boolean isEmpty(int n)
@@ -95,6 +97,91 @@ public class TIcTacToeGame {
 			return true;
 	}
 	
+	public boolean decideWinner()
+	{
+		if(board[1] == board[2] && board[2] == board[3] && board[3] != '\u0000')
+		{
+			if(board[1] == 'X')
+				System.out.println("User Won the Game");
+			else
+				System.out.println("Computer Won the Game");
+			return true;
+		}
+		else if(board[4] == board[5] && board[5] == board[6] && board[6] != '\u0000')
+		{
+			if(board[4] == 'X')
+				System.out.println("User Won the Game");
+			else
+				System.out.println("Computer Won the Game");
+			return true;
+		}
+		else if(board[7] == board[8] && board[8] == board[9] && board[9] != '\u0000')
+		{
+			if(board[7] == 'X')
+				System.out.println("User Won the Game");
+			else
+				System.out.println("Computer Won the Game");
+			return true;
+		}
+		else if(board[1] == board[5] && board[5] == board[9] && board[9] != '\u0000')
+		{
+			if(board[1] == 'X')
+				System.out.println("User Won the Game");
+			else
+				System.out.println("Computer Won the Game");
+			return true;
+		}
+		else if(board[3] == board[5] && board[5] == board[7] && board[7] != '\u0000')
+		{
+			if(board[3] == 'X')
+				System.out.println("User Won the Game");
+			else
+				System.out.println("Computer Won the Game");
+			return true;
+		}
+		else if(board[1] == board[4] && board[4] == board[7] && board[7] != '\u0000')
+		{
+			if(board[1] == 'X')
+				System.out.println("User Won the Game");
+			else
+				System.out.println("Computer Won the Game");
+			return true;
+		}
+		else if(board[2] == board[5] && board[5] == board[8] && board[8] != '\u0000')
+		{
+			if(board[2] == 'X')
+				System.out.println("User Won the Game");
+			else
+				System.out.println("Computer Won the Game");
+			return true;
+		}
+		else if(board[3] == board[6] && board[6] == board[9] && board[9] != '\u0000')
+		{
+			if(board[3] == 'X')
+				System.out.println("User Won the Game");
+			else
+				System.out.println("Computer Won the Game");
+			return true;
+		}
+		else
+		{
+			int count = 0;
+			for(int i=1;i<board.length;i++)
+			{
+				if(board[i] == '\u0000')
+				{
+					count++;
+					break;
+				}
+			}
+			if(count == 0) {
+				System.out.println("Its a tie!");
+				return true;
+			}
+			else
+				return false;
+		}
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -115,7 +202,6 @@ public class TIcTacToeGame {
 			game.makeCompMove(sc);
 		}
 		game.showBoard();
-		game.makeMove(sc);
 		sc.close();
 	}
 
